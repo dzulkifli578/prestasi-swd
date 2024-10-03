@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "tailwind": "npx tailwindcss -i ./resources/css/app.css -o ./public/css/tailwind.css --watch"
+        "tailwind": "npx tailwindcss -i ./resources/css/tailwind.css -o ./public/css/tailwind.css --watch"
     },
     "devDependencies": {
         "axios": "^1.7.4",
@@ -15,6 +15,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.6.0",
-        "alpinejs": "^3.14.1"
+        "alpinejs": "^3.14.1",
+        "esbuild": "^0.24.0"
     }
 }
