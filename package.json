@@ -4,8 +4,10 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "tailwind": "bunx tailwindcss -i ./resources/css/tailwind.css -o ./public/css/tailwind.css --watch",
-        "alpine": "bunx esbuild ./resources/js/alpine.js --outfile=./public/js/alpine.js --bundle --watch"
+        "tailwind": "bunx tailwindcss -i ./resources/css/tailwind.css -o ./public/css/tailwind.css --watch --minify",
+        "alpine": "bunx esbuild ./resources/js/alpine.js --outfile=./public/js/alpine.js --bundle --watch --minify",
+        "font-awesome": "bunx esbuild ./resources/css/font-awesome.css --outfile=./public/css/font-awesome.css --bundle --watch --minify --loader:.woff=file --loader:.woff2=file --loader:.ttf=file",
+        "turbo": "bunx esbuild ./resources/js/turbo.js --outfile=./public/js/turbo.js --bundle --watch --minify"
     },
     "devDependencies": {
         "axios": "^1.7.4",
@@ -16,6 +18,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.6.0",
+        "@hotwired/turbo": "^8.0.10",
         "alpinejs": "^3.14.1"
     }
 }
