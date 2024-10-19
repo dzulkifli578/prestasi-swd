@@ -3,16 +3,33 @@
 namespace App\Http\Middleware;
 
 use App\Models\Akun;
+use App\Services\LogAkunService;
 use Closure;
 use Illuminate\Http\Request;
 use Session;
 
+/**
+ * Class AuthMiddleware
+ *
+ * Middleware for checking if the user is authenticated.
+ *
+ * @package App\Http\Middleware
+ */
 class AuthMiddleware
 {
+    private $logAkunService;
+
+    public function __construct(LogAkunService $logAkunService)
+    {
+        $this->logAkunService = $logAkunService;
+    }
+
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handle(Request $request, Closure $next)
     {
@@ -27,8 +44,11 @@ class AuthMiddleware
 
         Session::put([
             "id" => $akun->id,
-            "nama_pengguna" => $akun->nama_pengguna
+            "nama_pengguna" => $akun->nama_pengguna,
+            "foto" => $akun->foto
         ]);
+
+        $this->logAkunService->log("Login", session("nama_pengguna") . " sudah login");
 
         return redirect()->route("dashboard");
     }
