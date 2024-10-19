@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama_pengguna');
             $table->string('kata_sandi');
             $table->string('email')->unique();
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }    
