@@ -14,12 +14,12 @@
             <tbody>
                 @if ($prestasi->isEmpty())
                     <tr>
-                        <td colspan="6" class="text-center">Tidak ada data yang dicari...</td>
+                        <td colspan="6" class="text-center">Tidak ada data prestasi...</td>
                     </tr>
                 @else
                     @foreach ($prestasi as $prestasi)
                         <tr class="hover:bg-base-200 cursor-pointer"
-                            onclick="bukaDetailDataPrestasi({{ json_encode ($prestasi) }})">
+                            onclick="bukaDetailDataPrestasi({{ json_encode($prestasi) }})">
                             <th>{{ $prestasi->id }}</th>
                             <td>{{ $prestasi->nama }}</td>
                             <td>{{ $prestasi->juara }}</td>
@@ -29,7 +29,8 @@
                         </tr>
                     @endforeach
                     <tr id="noDataRow" style="display: none">
-                        <td colspan="6" class="text-center">Tidak ada data...</td>
+                        <td colspan="6" class="text-center">Tidak ada data prestasi yang sesuai dengan pencarian...
+                        </td>
                     </tr>
                 @endif
             </tbody>
@@ -48,7 +49,7 @@
         const searchValue = searchInput.value.toLowerCase();
         const selectedJuara = juaraFilter.value.toLowerCase();
         const selectedBidangLomba = bidangLombaFilter.value.toLowerCase();
-        
+
         let rowVisible = false;
 
         tableRows.forEach(row => {
