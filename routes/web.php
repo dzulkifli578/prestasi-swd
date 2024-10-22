@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix("/")->group(function () {
     Route::get("", [RootController::class, "Beranda"])->name("beranda");
     Route::get("prestasi", [RootController::class, "Prestasi"])->name("prestasi");
+    Route::get("tentang", [RootController::class, "Tentang"])->name("tentang");
     Route::get("login", [RootController::class, "Login"])->name("login");
     Route::post("proses-login")->middleware(AuthMiddleware::class)->name("proses-login");
 });
