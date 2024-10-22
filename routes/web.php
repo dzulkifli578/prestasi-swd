@@ -1,12 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\RootController;
 use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\AuthMiddleware;
-use App\Http\Middleware\GuestMiddleware;
 use App\Http\Middleware\GuestMiddleware;
 use Illuminate\Support\Facades\Route;
 
