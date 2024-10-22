@@ -25,6 +25,7 @@
             <h1 class="text-2xl md:text-3xl lg:text-4xl text-center font-bold mb-6">Data Prestasi</h1>
             @include('admin.data-prestasi.kondisi')
             @include('admin.data-prestasi.tabel')
+            @include('admin.data-prestasi.detail')
         </div>
     </turbo-frame>
 
