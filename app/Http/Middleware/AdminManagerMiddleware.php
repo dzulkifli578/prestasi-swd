@@ -16,7 +16,7 @@ class AdminManagerMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Session::has(["id", "nama_pengguna"]) || Session::get("peran") != "admin-manager")
+        if (!session()->has(["id", "nama_pengguna"]) || session()->get("peran") != "admin-manager")
             return redirect()->route("login")->with("error", 'Anda tidak memiliki akses sebagai admin manager.');
 
         return $next($request);
