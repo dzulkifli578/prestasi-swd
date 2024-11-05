@@ -6,7 +6,6 @@ use App\Models\Akun;
 use App\Services\LogAkunService;
 use Closure;
 use Illuminate\Http\Request;
-use Session;
 
 /**
  * Class AuthMiddleware
@@ -33,23 +32,29 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $credentials = $request->only("nama_pengguna", "kata_sandi");
-        $akun = Akun::where("nama_pengguna", $credentials["nama_pengguna"])->first();
+        $kredensial = $request->only("nama_pengguna", "kata_sandi");
+        $akun = Akun::where("nama_pengguna", $kredensial["nama_pengguna"])->first();
 
         if (!$akun)
             return redirect()->back()->with("error", "Nama pengguna tidak ada.");
 
-        if (!password_verify($credentials["kata_sandi"], $akun->kata_sandi))
+        if (!password_verify($kredensial["kata_sandi"], $akun->kata_sandi))
             return redirect()->back()->with("error", "Kata sandi tidak cocok.");
 
-        Session::put([
+        session()->put([
             "id" => $akun->id,
             "nama_pengguna" => $akun->nama_pengguna,
+            "peran" => $akun->peran,
             "foto" => $akun->foto
         ]);
 
         $this->logAkunService->log("Login", session("nama_pengguna") . " sudah login");
 
-        return redirect()->route("dashboard");
+        return match (session()->get("peran"))
+        {
+            "admin" => redirect()->route("dashboard-admin"),
+            "admin-manager" => redirect()->route("dashboard-admin-manager"),
+            default => redirect()->route("login")
+        };
     }
 }
