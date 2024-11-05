@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\LogAkun;
+use DB;
 
 /**
  * Class LogAkunService
@@ -23,9 +24,16 @@ class LogAkunService
     public function log($judul, $isi)
     {
         LogAkun::create([
-            'akun_id' => session('id'),
+            'akun_id' => session()->get('id'),
             'judul' => $judul,
             'isi' => $isi
         ]);
+    }
+
+    public function hapusLog(int $id)
+    {
+        LogAkun::where("akun_id", $id)->delete();
+        DB::statement("ALTER TABLE log_akun AUTO_INCREMENT = 1");
+        return redirect()->back()->with("sukses", "Log akun telah dihapus");
     }
 }
