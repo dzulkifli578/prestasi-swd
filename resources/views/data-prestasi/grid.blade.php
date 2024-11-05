@@ -1,6 +1,5 @@
-<div class="bg-base-300 rounded-xl shadow-lg p-6 m-6 hover:ring-2 hover:ring-base-content ease-in-out duration-300">
-    <h1 class="text-2xl md:text-3xl lg:text-4xl text-center font-bold mb-6 hover:scale-105 ease-in-out duration-300">Data
-        Prestasi Siswa</h1>
+<div class="card-section-primary transition-smooth">
+    <h1 class="card-title-primary hover-scale-sm">Data Prestasi Siswa</h1>
 
     @if ($prestasi->isEmpty())
         <div class="grid grid-cols-1 bg-base-100 p-6" id="prestasiGrid">
