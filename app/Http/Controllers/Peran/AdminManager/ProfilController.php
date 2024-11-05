@@ -5,28 +5,40 @@ namespace App\Http\Controllers\Peran\AdminManager;
 use App\Http\Controllers\Controller;
 use App\Models\Akun;
 use App\Services\LogAkunService;
-use App\Services\LoginDataService;
 use Illuminate\Http\Request;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\ImageManager;
 
 class ProfilController extends Controller
 {
-    private $loginDataService, $logAkunService;
+    private $logAkunService;
 
-    public function __construct(LoginDataService $loginDataService,LogAkunService $logAkunService)
+    /**
+     * ProfilController constructor.
+     *
+     * @param \App\Services\LogAkunService $logAkunService
+     */
+    public function __construct(LogAkunService $logAkunService)
     {
-        $this->loginDataService = $loginDataService;
         $this->logAkunService = $logAkunService;
     }
 
+    /**
+     * Display account profile page.
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function Profil(Request $request)
     {
-        $data = $this->loginDataService->get();
         $akun = Akun::find(session()->get("id"));
-        return view("peran.components.profil.profil", array_merge($data, compact("akun")));
+        return view("peran.components.profil.profil", compact("akun"));
     }
 
+    /**
+     * Handle update admin profile.
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function PerbaruiProfil(Request $request)
     {
         $data = [];

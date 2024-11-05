@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use App\Models\BidangLomba;
 use App\Models\Juara;
 use App\Services\LogAkunService;
-use App\Services\LoginDataService;
 use Illuminate\Http\Request;
 
 /**
@@ -17,16 +16,15 @@ use Illuminate\Http\Request;
  */
 class JuaraBidangLombaController extends Controller
 {
-    private $logAkunService, $loginDataService;
+    private $logAkunService;
 
     /**
      * JuaraBidangLombaController constructor.
      *
      * @param LogAkunService $logAkunService
      */
-    public function __construct(LoginDataService $loginDataService, LogAkunService $logAkunService)
+    public function __construct(LogAkunService $logAkunService)
     {
-        $this->loginDataService = $loginDataService;
         $this->logAkunService = $logAkunService;
     }
 
@@ -39,11 +37,10 @@ class JuaraBidangLombaController extends Controller
      */
     public function JuaraBidangLomba(Request $request)
     {
-        $data = $this->loginDataService->get();
         $juara = Juara::all();
         $bidangLomba = BidangLomba::all();
 
-        return view("peran.admin.juara-bidang-lomba.juara-bidang-lomba", array_merge($data, compact("juara", "bidangLomba")));
+        return view("peran.admin.juara-bidang-lomba.juara-bidang-lomba", compact("juara", "bidangLomba"));
     }
 
     /**

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Peran\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Akun;
 use App\Services\LogAkunService;
-use App\Services\LoginDataService;
 use Illuminate\Http\Request;
 
 /**
@@ -17,16 +16,15 @@ use Illuminate\Http\Request;
  */
 class ProfilController extends Controller
 {
-    private $loginDataService, $logAkunService;
+    private $logAkunService;
 
     /**
      * ProfilController constructor.
      *
      * @param LogAkunService $logAkunService
      */
-    public function __construct(LoginDataService $loginDataService, LogAkunService $logAkunService)
+    public function __construct(LogAkunService $logAkunService)
     {
-        $this->loginDataService = $loginDataService;
         $this->logAkunService = $logAkunService;
     }
 
@@ -38,9 +36,8 @@ class ProfilController extends Controller
      */
     public function Profil(Request $request)
     {
-        $data = $this->loginDataService->get();
         $akun = Akun::find(session()->get("id"))->first();
-        return view("peran.components.profil.profil", array_merge($data, compact("akun")));
+        return view("peran.components.profil.profil", compact("akun"));
     }
 
     /**

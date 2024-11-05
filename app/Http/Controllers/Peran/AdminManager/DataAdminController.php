@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Peran\AdminManager;
 use App\Http\Controllers\Controller;
 use App\Models\Akun;
 use App\Services\LogAkunService;
-use App\Services\LoginDataService;
 use Illuminate\Http\Request;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\ImageManager;
@@ -18,17 +17,15 @@ use Intervention\Image\ImageManager;
  */
 class DataAdminController extends Controller
 {
-    private $loginDataService, $logAkunService;
+    private $logAkunService;
 
     /**
      * DataAdminController constructor.
      *
-     * @param \App\Services\LoginDataService $loginDataService
      * @param \App\Services\LogAkunService $logAkunService
      */
-    public function __construct(LoginDataService $loginDataService, LogAkunService $logAkunService)
+    public function __construct(LogAkunService $logAkunService)
     {
-        $this->loginDataService = $loginDataService;
         $this->logAkunService = $logAkunService;
     }
 
@@ -40,9 +37,8 @@ class DataAdminController extends Controller
      */
     public function DataAdmin(Request $request)
     {
-        $data = $this->loginDataService->get();
         $akun = Akun::select("*")->where("peran", "admin")->get();
-        return view("peran.admin-manager.data-admin.data-admin", array_merge($data, compact("akun")));
+        return view("peran.admin-manager.data-admin.data-admin", compact("akun"));
     }
 
     /**
