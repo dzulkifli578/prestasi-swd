@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Session;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -25,9 +24,11 @@ class GuestMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Session::has(["id", "nama_pengguna"]))
-            return redirect()->route("dashboard");
-
-        return $next($request);
+        return match (session()->get("peran"))
+        {
+            "admin" => redirect()->route("dashboard-admin"),
+            "admin-manager" => redirect()->route("dashboard-admin-manager"),
+            default => $next($request)
+        };
     }
 }
