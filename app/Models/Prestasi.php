@@ -8,6 +8,10 @@ class Prestasi extends Model
 {
     protected $table = "prestasi";
 
+    protected $primaryKey = "id";
+
+    public $timestamps = true;
+
     protected $fillable = [
         "nama",
         "juara_id",
@@ -16,4 +20,14 @@ class Prestasi extends Model
         "tahun",
         "foto"
     ];
+
+    public function juara()
+    {
+        return $this->belongsTo(Juara::class, "juara_id");
+    }
+
+    public function bidangLomba()
+    {
+        return $this->belongsTo(BidangLomba::class, "bidang_lomba_id");
+    }
 }
