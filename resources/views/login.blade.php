@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
 </head>
 
-<body>
+<body class="bg-base-100 font-body">
     <div class="flex flex-col h-screen justify-center items-center">
-        <div class="w-[90%] flex flex-col justify-center bg-base-300 rounded-xl shadow-xl p-6 m-6  gap-y-4">
-            <img src="{{ asset('img/swadhipa.png') }}" alt="Logo Swadhipa" class="object-contain w-auto h-16">
+
+        <div
+            class="w-[90%] flex flex-col justify-center bg-base-300 rounded-xl shadow-xl p-6 m-6 gap-y-4 hover:ring-2 hover:ring-base-content ease-in-out duration-300">
+            <img src="{{ asset('img/swadhipa.avif') }}" alt="Logo Swadhipa" class="object-contain w-auto h-16">
             <p class="text-base text-neutral-content text-center">Login untuk mengelola data prestasi siswa.</p>
 
             @if (session('error'))
@@ -38,7 +40,7 @@
                     <span class="fa-solid fa-lock text-base-content"></span>
                     <input type="password" name="kata_sandi" class="grow" placeholder="Kata Sandi" required />
                 </label>
-                <input type="submit" class="btn btn-primary w-full"></input>
+                <button type="submit" class="btn btn-primary w-full">Submit</button>
             </form>
         </div>
     </div>
