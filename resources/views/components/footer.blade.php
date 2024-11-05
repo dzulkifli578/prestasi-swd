@@ -1,6 +1,6 @@
 <footer class="footer bg-primary text-primary-content p-10">
     <aside>
-        <img src="{{ asset('img/swadhipa.png') }}" alt="Logo Swadhipa" class="w-auto h-16">
+        <img src="{{ asset('img/swadhipa.avif') }}" alt="Logo Swadhipa" class="w-auto h-16">
         <p class="text-base md:text-lg font-bold my-2">
             SMK Swadhipa 2 Natar
             <br />
