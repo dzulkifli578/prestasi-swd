@@ -59,9 +59,15 @@ class DataAdminController extends Controller
 
         if ($request->hasFile("foto")) {
             $file = $request->file("foto");
-            $filename = time() . "_" . $file->getClientOriginalName();
-            $file->move(public_path("img/admin-manager"), $filename);
-            $validate["foto"] = "img/admin-manager/" . $filename;
+
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($file->getRealPath());
+            $filename = time() . "_" . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . ".avif";
+            $image->toAvif(100);
+
+            $image->save(public_path("img/admin/" . $filename));
+
+            $validate["foto"] = "img/admin/" . $filename;
         }
 
         $akun = Akun::create($validate);
@@ -110,12 +116,12 @@ class DataAdminController extends Controller
             $filename = time() . "_" . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . ".avif";
             $image->toAvif(100);
 
-            $image->save(public_path("img/admin/" . $id . "/" . $filename));
+            $image->save(public_path("img/admin/" . $filename));
 
             if ($akun->foto && file_exists(public_path($akun->foto)))
                 unlink(public_path($akun->foto));
 
-            $data["foto"] = "img/admin/" . $id . "/" . $filename;
+            $data["foto"] = "img/admin/" . $filename;
         } else
             $data["foto"] = $akun->foto;
 

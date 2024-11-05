@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Akun;
 use App\Services\LogAkunService;
 use Illuminate\Http\Request;
+use Intervention\Image\Drivers\Imagick\Driver;
+use Intervention\Image\ImageManager;
 
 /**
  * Class ProfilController
@@ -66,14 +68,20 @@ class ProfilController extends Controller
 
         if ($request->hasFile("foto")) {
             $file = $request->file("foto");
-            $filename = time() . "_" . $file->getClientOriginalName();
-            $file->move(public_path("img/admin/" . session()->get("id")), $filename);
+
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($file->getRealPath());
+            $filename = time() . "_" . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . ".avif";
+            $image->toAvif(100);
+
+            $image->save(public_path("img/admin/" . $filename));
 
             if ($akun->foto && file_exists(public_path($akun->foto)))
                 unlink(public_path($akun->foto));
 
-            $data["foto"] = "img/admin/" . session()->get("id") . "/" . $filename;
-        }
+            $data["foto"] = "img/admin/" . $filename;
+        } else
+            $data["foto"] = $akun->foto;
 
         $akun->update($data);
 
