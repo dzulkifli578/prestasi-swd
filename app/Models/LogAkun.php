@@ -31,4 +31,9 @@ class LogAkun extends Model
     ];
 
     public $timestamps = true;
+
+    public function akun()
+    {
+        return $this->belongsTo(Akun::class, "akun_id");
+    }
 }
