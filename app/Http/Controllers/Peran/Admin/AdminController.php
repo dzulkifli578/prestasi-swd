@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Peran\Admin;
 use App\Http\Controllers\Controller;
 use App\Services\LogoutService;
 use Illuminate\Http\Request;
-use Session;
 
 /**
  * Class AdminController
@@ -57,10 +56,9 @@ class AdminController extends Controller
      * Handle admin profile.
      *
      * @param Request $request
-     * @param Session $session
      * @return \Illuminate\Contracts\View\View
      */
-    public function Profil(Request $request, Session $session)
+    public function Profil(Request $request)
     {
         return $this->profilController->Profil($request);
     }
@@ -69,10 +67,9 @@ class AdminController extends Controller
      * Handle update admin profile.
      *
      * @param Request $request
-     * @param Session $session
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function PerbaruiProfil(Request $request, Session $session)
+    public function PerbaruiProfil(Request $request)
     {
         return $this->profilController->PerbaruiProfil($request);
     }
