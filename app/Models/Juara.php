@@ -27,4 +27,9 @@ class Juara extends Model
     ];
 
     public $timestamps = true;
+
+    public function prestasi()
+    {
+        return $this->belongsTo(Prestasi::class);
+    }
 }
