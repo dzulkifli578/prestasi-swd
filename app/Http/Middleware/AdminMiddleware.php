@@ -24,7 +24,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session()->has(["id", "nama_pengguna"]) || session()->get("peran") != "admin")
+        if (session()->get("peran") != "admin")
             return redirect()->route("login")->with("error", 'Anda tidak memiliki akses sebagai admin.');
 
         return $next($request);
