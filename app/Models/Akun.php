@@ -33,8 +33,14 @@ class Akun extends Model
         "nama_pengguna",
         "kata_sandi",
         "email",
+        "peran",
         "foto"
     ];
 
     public $timestamps = true;
+
+    public function logAkun()
+    {
+        return $this->hasMany(LogAkun::class);
+    }
 }
