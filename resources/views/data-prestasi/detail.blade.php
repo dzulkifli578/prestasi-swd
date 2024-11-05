@@ -2,7 +2,7 @@
     <div class="modal-box">
         <h3 class="text-lg md:text-xl lg:text-2xl font-bold mb-4">Detail Data Prestasi</h3>
         <div class="flex flex-col gap-2">
-            <img alt="Gambar" class="rounded-xl shadow-xl w-auto h-auto">
+            <img alt="Gambar" class="rounded-xl shadow-lg w-auto h-auto">
             <label class="form-control w-full">
                 <div class="label">
                     <span class="label-text cursor-text">Nama</span>
@@ -29,6 +29,7 @@
                 <div class="label">
                     <span class="label-text cursor-text">Bidang Lomba</span>
                 </div>
+                
                 <select class="select select-bordered w-full" id="detailBidangLombaId" disabled>
                     <option disabled selected>Bidang Lomba</option>
                     @foreach ($bidangLomba as $bidangLomba)
@@ -66,13 +67,29 @@
 
 <script>
     function bukaDetailDataPrestasi(prestasi) {
-        console.log(prestasi);
         document.getElementById('detailDataPrestasi').showModal();
         document.getElementById('detailJuaraId').value = prestasi.juara_id;
         document.getElementById('detailBidangLombaId').value = prestasi.bidang_lomba_id;
         document.getElementById('nama').value = prestasi.nama;
         document.getElementById('namaLomba').value = prestasi.nama_lomba;
         document.getElementById('tahun').value = prestasi.tahun;
-        document.querySelector('#detailDataPrestasi img').src = `{{ asset('') }}${prestasi.foto}`;
+
+        const imgElement = document.querySelector('#detailDataPrestasi img');
+        const noPhotoMessage = document.querySelector('#detailDataPrestasi .no-photo-message');
+
+        if (prestasi.foto) {
+            imgElement.src = `{{ asset('') }}${prestasi.foto}`;
+            imgElement.style.display = 'block';
+            if (noPhotoMessage) noPhotoMessage.style.display = 'none';
+        } else {
+            imgElement.style.display = 'none';
+            if (!noPhotoMessage) {
+                const noPhotoDiv = document.createElement('div');
+                noPhotoDiv.className = 'bg-base-300 rounded-xl shadow-lg p-6 no-photo-message';
+                noPhotoDiv.innerHTML = '<h1 class="text-error text-center">Tidak ada foto.</h1>';
+                imgElement.parentNode.insertBefore(noPhotoDiv, imgElement);
+            } else
+                noPhotoMessage.style.display = 'block';
+        }
     }
 </script>
