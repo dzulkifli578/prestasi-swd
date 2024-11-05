@@ -1,7 +1,7 @@
 <footer class="footer bg-primary text-primary-content items-center p-6">
     <aside class="grid-flow-col items-center">
         <img src="{{ asset('img/swadhipa.avif') }}" alt="Logo Swadhipa" class="w-12 h-12">
-      <p class="text-sm md:text-base font-medium">Copyright © {{ date('Y') }} - All right reserved</p>
+      <p class="text-sm md:text-base font-medium tracking-wide">Copyright © {{ date('Y') }} - All right reserved</p>
     </aside>
     <nav class="grid-flow-col gap-6 md:place-self-center md:justify-self-end">
       <a href="https://www.youtube.com/@smkswadhipa2natar">
